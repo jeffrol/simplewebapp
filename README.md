@@ -26,9 +26,10 @@ The data model is very simple.
 * CD to your local directory for this repo. `cd simplewebapp`
 * Startup a Docker container running MySQL from the official MySQL docker image. Also create the "myloves" database and run setup scripts from `./mysql-docker/sql-scripts` to populate the database.
     * TODO: I should clearly have a different way to insert the password and save it more securely for a production system.  This would be in a key vault somewhere.
-        ```
-        docker run -d -p 3306:3306 --name myloves-mysql \
-        -v ./mysql-docker/sql-scripts:/docker-entrypoint-initdb.d/ \
+        ```bash
+        # replace ~/dev/jeffrol/simplewebapp/mysql-docker/sql-scripts with the path to your sql startup scripts
+        $ docker run -d -p 3306:3306 --name myloves-mysql \
+        -v ~/dev/jeffrol/simplewebapp/mysql-docker/sql-scripts:/docker-entrypoint-initdb.d/ \
         -e MYSQL_ROOT_PASSWORD=supersecret \
         -e MYSQL_DATABASE=myloves \
         mysql
