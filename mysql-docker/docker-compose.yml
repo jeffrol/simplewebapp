@@ -1,0 +1,26 @@
+services:
+ db:
+   image: mysql
+   restart: always
+   expose:
+     - 3306
+   environment:
+     MYSQL_ROOT_PASSWORD: supersecret
+     MYSQL_DATABASE: myloves
+   volumes:
+     - ./mysql-docker/sql-scripts:/docker-entrypoint-initdb.d/
+ adminer:
+   image: adminer
+   restart: always
+   ports:
+     - 8080:8080
+ app:
+   build:
+     context: ./mylovesapi
+     dockerfile: ./Dockerfile
+   ports:
+     - 8880:80
+   depends_on:
+     - db
+#volumes:
+# postgres-data:
